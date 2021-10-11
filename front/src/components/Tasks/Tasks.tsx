@@ -2,7 +2,7 @@ import TaskListPanel from "../TaskListPanel/TaskListPanel";
 import TaskListContainer from "../TaskListContainer/TaskListContainer";
 import {Filter, Task} from "../../service/interfaces";
 import {useState} from "react";
-import {getTasks} from "../../middleware/api";
+import {dropTask, getTasks, patchTask, tasks} from "../../middleware/api";
 
 
 interface Props {
@@ -28,7 +28,12 @@ function Tasks(props: Props) {
         }
     )
 
-    const [tasks, setTasks] = useState<Task[]>(getTasks())
+    const [tasks, setTasks] = useState<Task[]>(fetchTasks())
+
+    function fetchTasks() {
+        return getTasks("jwt")
+    }
+
 
     //@params = object {column, operator, value}
     function changeFilter(params: {column: string, operator: string, value: string}) {
@@ -64,7 +69,7 @@ function Tasks(props: Props) {
     }
 
     function saveTask(task: Task) {
-
+        //let newTask = patchTask(task)
         let newTask = tasks.find(item => item.id === task.id);
         if (newTask) {
             tasks.push(task)
@@ -73,16 +78,19 @@ function Tasks(props: Props) {
     }
 
     function deleteTask(task: Task) {
+        if (dropTask(task, "jwt")) {
+            let newTask = tasks.find(item => item.id === task.id);
+            if (newTask) {
+                setTasks(tasks.filter(item => item.id != task.id));
+            }
 
-        let newTask = tasks.find(item => item.id === task.id);
-        if (newTask) {
-            setTasks(tasks.filter(item => item.id != task.id));
         }
 
     }
 
     return (
         <div>
+            <p>Всего заявок: {tasks.length}</p>
             <TaskListPanel
                 changeFilter={changeFilter}
                 changeSearchVal={changeSearchVal}

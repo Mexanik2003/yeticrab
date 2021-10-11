@@ -8,7 +8,6 @@ function App() {
 
     function setAdminFlag() {
         setAdmin(!adminFlag);
-        console.log(adminFlag)
     }
 
     return (

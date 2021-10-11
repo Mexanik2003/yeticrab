@@ -1,70 +1,77 @@
-# Getting Started with Create React App
+Тестовое задание на должность
+javascript developer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+##Результат выполнения
 
-## Available Scripts
+### Фронт
+Стек: ReactJS + TS с максимально строгой типизацией
+Реализована фронт-часть, без верстки, со следующим функционалом:
+1) Вывод таблицы заявок с возможностями:
+- сортировки (при щелчке по заголовку страницы)
+- фильтрации (при выборе столбца для фильтра, оператора фильтрации и значения фильтра)
+- поиска содержимого
+Параметры сортировки, фильтрации и поиска воздействуют на содержимое таблицы одновременно.
+2) Эмуляция административного режима - переходе в "админку" появляются элементы управления
+3) Нажатие кнопки редактирования позволяет исправить содержимое заявки "на лету", без всплывающих окон
+### TODO
+Кнопка создания заявки с открытием формы ввода заявки, отправки PUT-запроса и обновления списка заявок
 
-In the project directory, you can run:
+### Бэк
+Предполагаемый стек: Koa/Express, Postgres/Mongo, роутинг
+Бэкенд реализован в файле api.tsx в виде функций-заглушек. В функциях приведет пример кода для обращения к бэкенду
+Реализация бэкенда предполагается в виде трех роутов, все с авторизацией через Bearer jwt token:
+1) /tasks - получение всех заявок
+-метод: GET
+-передаваемые данные: нет
+-возвращаемые данные: массив объектов типа Task (см. interfaces.tsx)
+2) /task/edit/:id - редактирование заявки
+-метод: PATCH
+-передаваемые данные: объект типа Task
+-возвращаемые данные: объект типа Task, при ошибке редактирования: объект {error: "Текст ошибки'}
+3) /task/delete/:id - удаление заявки
+   -метод: PATCH
+   -передаваемые данные: объект типа Task
+   -возвращаемые данные: булевое значение (true при успешном удалении)
+3) /task/add/ - создание заявки
+   -метод: PUT
+   -передаваемые данные: объект типа Task с нулевым id
+   -возвращаемые данные: объект типа Task с ненулевым id, при ошибке добавления: объект {error: "Текст ошибки'}
 
-### `npm start`
+Временные затраты на релизованный функционал: 8 часов.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Текст задания
+Необходимо разработать прототип системы ведения заявок для логистов в авто
+грузоперевозках в виде web-приложения.
+Проект должен быть полностью рабочим, т.е. его можно собрать и запустить из
+исходного кода и весь основной функционал должен быть реализован.
+Прототип включает в себя вывод таблицы с заявками, счетчик заявок (количество
+заявок в таблице). Должна быть возможность перейти в режим администратора
+(авторизацию делать не нужно), где появляется возможность просмотра,
+редактирования и удаления заявок, создание новых заявок.
+В заявке есть следующие данные:
+● Номер заявки
+● Дата и время получения заявки от клиента
+● Название фирмы клиента
+● ФИО перевозчика
+● Контактный телефон перевозчика
+● Комментарии
+● ATI код сети перевозчика (кликабельно, переход на сайт). Ссылка такого
+вида: https://ati.su/firms/{ati}/info (пример: https://ati.su/firms/12345/info)
+Помимо реализации frontend необходимо предоставить документацию к REST API
+для этого проекта, как вы её видите.
+Дизайн на ваше усмотрение.
+Проект нужно реализовать на одной из frontend-технологий: TypeScript + React /
+Next.js / Angular
+Дополнительным плюсом будет:
+● реализовать фильтрацию в таблице заявок
+1
+● реализовать поиск по таблице заявок
+● реализовать backend на Node.JS (Nestjs)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Готовый исходный код тестового задания, включая документацию к REST API,
+опубликовать в публичном репозитории на сайте https://github.com/ или
+https://gitlab.com/
+Зафиксировать сколько времени ушло на решение тестового задания.
+Ссылку на репозиторий или репозитории с тестовым заданием + ваше резюме
+присылать на e-mail job.dev@yeticrab.org.
+2

@@ -88,7 +88,6 @@ function TaskListContainer(props: Props) {
     }
 
     function onPressDeleteBtn(e: any) {
-        console.log(e.target.dataset.index)
         e.preventDefault();
         props.deleteTask({
             ...tasks[e.target.dataset.index]})
@@ -100,7 +99,6 @@ function TaskListContainer(props: Props) {
         setEditingTask(-1)
     }
 
-    console.log(editingTask)
 
     return (
         <div>

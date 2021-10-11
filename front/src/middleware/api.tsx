@@ -1,6 +1,8 @@
 import {Task} from "../service/interfaces";
 
 
+const server = process.env.SERVER
+
 const tasks:Task[] = [
     {
         id: 1,
@@ -40,8 +42,47 @@ const tasks:Task[] = [
     }
 ]
 
-function getTasks() {
+function getTasks(jwt:string = "") {
+    // For test only
     return tasks;
+
+
+    // return fetch(`${server}/tasks`, {
+    //     method: 'GET',
+    //     headers: {
+    //         'Content-Type': "application/json",
+    //         Authorization: jwt,
+    //     }
+    // }).then(result => result.json())
+    // .catch(err => [])
+
 }
 
-export {tasks, getTasks}
+function patchTask(task:Task, jwt:string = "") {
+    return fetch(`${server}/task/edit/${task.id}`, {
+        method: 'PATCH',
+        headers: {
+            Authorization: jwt,
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify(task)
+    })
+
+}
+
+function dropTask(task:Task, jwt:string = "") {
+    //Comment this
+    return true
+
+    return fetch(`${server}/task/delete/${task.id}`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: jwt,
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify({})
+    })
+
+}
+
+export {tasks, getTasks, patchTask, dropTask}

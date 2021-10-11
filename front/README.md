@@ -3,6 +3,9 @@ javascript developer
 
 ##Результат выполнения
 
+GH-pages: https://mexanik2003.github.io/yeticrab/
+Репозиторий: https://github.com/Mexanik2003/yeticrab.git
+
 ### Фронт
 Стек: ReactJS + TS с максимально строгой типизацией
 Реализована фронт-часть, без верстки, со следующим функционалом:
